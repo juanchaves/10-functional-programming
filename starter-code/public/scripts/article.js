@@ -28,7 +28,15 @@ Article.loadAll = rows => {
 
   // TODO: Refactor this forEach code, by using a `.map` call instead, since want we are trying to accomplish
   // is the transformation of one colleciton into another.
-
+  function makeNewArticle(ele) {
+    return ele
+      .map(function (ele) {
+      return // DO SOMETHING with ele
+      })
+      .reduce(function (prev, cur) {
+        return //DO SOMETHING with prev & cur
+      })
+  }
   /* OLD forEach():
     rawData.forEach(function(ele) {
     Article.all.push(new Article(ele));
