@@ -26,19 +26,11 @@ Article.prototype.toHtml = function() {
 Article.loadAll = rows => {
   rows.sort((a,b) => (new Date(b.publishedOn)) - (new Date(a.publishedOn)));
 
-  // TODO: Refactor this forEach code, by using a `.map` call instead, since want we are trying to accomplish
+  // DONE: Refactor this forEach code, by using a `.map` call instead, since want we are trying to accomplish
   // is the transformation of one colleciton into another.
-  function makeNewArticle(ele) {
-    return ele
-      .map(function (ele) {
-      return // DO SOMETHING with ele
-      })
-      .reduce(function (prev, cur) {
-        return //DO SOMETHING with prev & cur
-      })
-  }
+  Article.all = rows.map(objs => new Article(objs)); // DO SOMETHING with ele
   /* OLD forEach():
-    rawData.forEach(function(ele) {
+    rows.forEach(function(ele) {
     Article.all.push(new Article(ele));
   });
   */
@@ -69,7 +61,11 @@ Article.fetchAll = callback => {
 
 // TODO: Chain together a `map` and a `reduce` call to get a rough count of all words in all articles.
 Article.numWordsAll = () => {
-  return Article.all.map().reduce()
+  return Article.all
+    .map(function (Article.all) {
+      
+    })
+    .reduce()
 };
 
 // TODO: Chain together a `map` and a `reduce` call to produce an array of unique author names.
