@@ -62,11 +62,13 @@
 
   // TODO: Chain together a `map` and a `reduce` call to get a rough count of all words in all articles.
   Article.numWordsAll = () => {
-    return Article.all
-      .map(function (Article.all) {
-
+    return results.rows
+      .map(function () {
+        return results.rows.body;
       })
-      .reduce()
+      .reduce(function(){
+        return results.rows.body.split(' ').length;
+      })
   };
 
   // TODO: Chain together a `map` and a `reduce` call to produce an array of unique author names.
