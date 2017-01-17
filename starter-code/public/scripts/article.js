@@ -28,13 +28,14 @@
     rows.sort((a,b) => (new Date(b.publishedOn)) - (new Date(a.publishedOn)));
 
     // DONE: Refactor this forEach code, by using a `.map` call instead, since want we are trying to accomplish
-    // is the transformation of one colleciton into another.
-    Article.all = rows.map(objs => new Article(objs)); // DO SOMETHING with ele
+    // is the transformation of one collection into another.
+
     /* OLD forEach():
       rows.forEach(function(ele) {
       Article.all.push(new Article(ele));
     });
     */
+    Article.all = rows.map(ele => new Article(ele));
 
   };
 
@@ -62,7 +63,7 @@
 
   // TODO: Chain together a `map` and a `reduce` call to get a rough count of all words in all articles.
   Article.numWordsAll = () => {
-    return results.rows
+    return Article.all
       .map(function () {
         return results.rows.body;
       })
@@ -116,8 +117,8 @@
 
   Article.prototype.updateRecord = function(callback) {
     $.ajax({
-      url: '/articles/delete',
-      method: 'DELETE',
+      url: '/articles/update',
+      method: 'PUT',
       data: {
         author: this.author,
         authorUrl: this.authorUrl,
