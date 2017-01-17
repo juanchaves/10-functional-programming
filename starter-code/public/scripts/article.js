@@ -61,30 +61,37 @@
     )
   };
 
-  // TODO: Chain together a `map` and a `reduce` call to get a rough count of all words in all articles.
+  // DONE: Chain together a `map` and a `reduce` call to get a rough count of all words in all articles.
   Article.numWordsAll = () => {
     return Article.all
-      .map(function () {
-        return results.rows.body;
-      })
-      .reduce(function(){
-        return results.rows.body.split(' ').length;
-      })
+      .map((article) => article.body.split(' ').length)
+      .reduce((a, b) => a + b, 0);
   };
 
-  // TODO: Chain together a `map` and a `reduce` call to produce an array of unique author names.
+  // DONE: Chain together a `map` and a `reduce` call to produce an array of unique author names.
   Article.allAuthors = () => {
-    return Article.all.map().reduce();
-  };
+    return Article.all
+    .map(author => author.author)
+    .reduce(function(array, nextAuthorName) {
+      if(array.indexOf(nextAuthorName) === -1) {
+        array.push(nextAuthorName);
+      }
+      return array;
+      }, [])
+    };
 
   Article.numWordsByAuthor = () => {
     return Article.allAuthors().map(author => {
-      // TODO: Transform each author string into an object with properties for
+      // DONE: Transform each author string into an object with properties for
       // the author's name, as well as the total number of words across all articles
       // written by the specified author.
       return {
-        name: , // TODO: Complete the value for this object property
-        numWords: Article.all.filter().map().reduce() // TODO: Complete these three FP methods.
+        name: author, // DONE: Complete the value for this object property
+        numWords: Article.all.filter(function(article) {
+          return article.author === author
+        })
+        .map((article) => article.body.split(' ').length)
+        .reduce((a, b) => a + b, 0) // DONE: Complete these three FP methods.
       }
     })
   };
