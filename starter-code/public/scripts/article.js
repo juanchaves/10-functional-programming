@@ -36,7 +36,6 @@
     });
     */
     Article.all = rows.map(ele => new Article(ele));
-
   };
 
   Article.fetchAll = callback => {
@@ -133,8 +132,9 @@
         category: this.category,
         publishedOn: this.publishedOn,
         title: this.title,
-        id: this.article_id}
-      })
+        id: this.article_id
+      }
+    })
       .then(console.log)
       .then(callback);
 
