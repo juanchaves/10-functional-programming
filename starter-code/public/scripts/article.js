@@ -26,7 +26,6 @@
 
   Article.loadAll = rows => {
     rows.sort((a,b) => (new Date(b.publishedOn)) - (new Date(a.publishedOn)));
-
     // DONE: Refactor this forEach code, by using a `.map` call instead, since want we are trying to accomplish
     // is the transformation of one collection into another.
 
@@ -63,21 +62,19 @@
   // DONE: Chain together a `map` and a `reduce` call to get a rough count of all words in all articles.
   Article.numWordsAll = () => {
     return Article.all
-      .map((article) => article.body.split(' ').length)
-      .reduce((a, b) => a + b, 0);
+      .map(article => article.body.match(/\b\w+/g).length)
+      .reduce((a, b) => a + b);
   };
 
   // DONE: Chain together a `map` and a `reduce` call to produce an array of unique author names.
   Article.allAuthors = () => {
     return Article.all
-    .map(author => author.author)
-    .reduce(function(array, nextAuthorName) {
-      if(array.indexOf(nextAuthorName) === -1) {
-        array.push(nextAuthorName);
-      }
-      return array;
-      }, [])
-    };
+    .map(article => article.author)
+    .reduce((names, name)=> {
+      if(names.indexOf(name) === -1)names.push(name);
+        return names;
+    }, []);
+  };
 
   Article.numWordsByAuthor = () => {
     return Article.allAuthors().map(author => {
@@ -86,11 +83,10 @@
       // written by the specified author.
       return {
         name: author, // DONE: Complete the value for this object property
-        numWords: Article.all.filter(function(article) {
-          return article.author === author
-        })
-        .map((article) => article.body.split(' ').length)
-        .reduce((a, b) => a + b, 0) // DONE: Complete these three FP methods.
+        numWords: Article.all.filter(a => a.author === author)
+                              .map(a => a.body.match(/\b\w+/g).length)
+                              .reduce((a, b) => a + b)
+                              // DONE: Complete these three FP methods.
       }
     })
   };
